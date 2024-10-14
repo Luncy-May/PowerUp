@@ -14,25 +14,24 @@ const Container = ({ draggableItems, droppableAreas }) => {
 
     // Handle the end of drag event
     function handleDragEnd({ active, over }) {
-        if (over) {
-            const draggableId = active.id;
-            const droppableId = over.id;
+        const draggableId = active.id;
 
-            // Move draggable from its previous droppable to the new droppable
-            setParent((prevState) => {
-                // Remove the draggable from the previous droppable (if it was in one)
-                const newState = { ...prevState };
-                Object.keys(newState).forEach((key) => {
-                    newState[key] = newState[key].filter(id => id !== draggableId);
-                });
+        setParent((prevState) => {
+            const newState = { ...prevState };
 
-                // Add the draggable to the new droppable
-                return {
-                    ...newState,
-                    [droppableId]: [...newState[droppableId], draggableId],
-                };
+            // Remove the draggable from any droppable it was previously in
+            Object.keys(newState).forEach((key) => {
+                newState[key] = newState[key].filter(id => id !== draggableId);
             });
-        }
+
+            // If dropped over a droppable, add it to that droppable's array
+            if (over) {
+                const droppableId = over.id;
+                newState[droppableId] = [...newState[droppableId], draggableId];
+            }
+
+            return newState;
+        });
     }
 
     // Render draggable items that are not in any droppable area
@@ -75,11 +74,11 @@ const Container = ({ draggableItems, droppableAreas }) => {
         <DndContext onDragEnd={handleDragEnd}>
             <div className="flex">
                 <div className="w-1/2 p-5 m-2 text-center text-2xl font-semibold border border-gray-200 shadow-md hover:shadow-lg">
-                    <h2>Draggable Items</h2>
+                    <h2 className='mb-2'>Draggable Items</h2>
                     {draggable}
                 </div>
                 <div className="w-1/2 p-5 m-2 text-center text-2xl font-semibold border border-gray-200 shadow-md hover:shadow-lg">
-                    <h2>Droppable Areas</h2>
+                    <h2 className='mb-2'>Droppable Areas</h2>
                     {droppable}
                 </div>
             </div>
