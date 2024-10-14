@@ -1,31 +1,20 @@
 import React, { useState } from 'react';
-import './index.css';  
-import SkillSet from './components/SkillSet';
-import JobSet from './components/JobSet';
-// npm install @dnd-kit/core
+import Container from './components/Container';
 
 function App() {
-  
+  const draggableItems = ["Item 1", "Item 2", "Item 3", "Item 4"];
+  const droppableAreas = ["Dropzone A", "Dropzone B", "Dropzone C"];
+
   return (
     <div className="p-10" tabIndex="0">
-      <h1 className="text-3xl font-bold mb-6 text-center">Skill-to-Job Matcher</h1>
-
-      <div className="flex mb-8">
-        <div className="w-1/2 p-5 flex flex-col items-center justify-center">
-          <h2 className="text-2xl font-semibold mb-4">Skills</h2>
-          <SkillSet />
-        </div>
-
-        <div className="w-1/2 p-5 flex flex-col items-center justify-center">
-          <h2 className="text-2xl font-semibold mb-4">Jobs</h2>
-          <JobSet />
-        </div>
+      <div className="text-3xl font-bold mb-6 text-center">
+        <h1>PowerUp: Your AI-Driven Skill-to-Job Matcher Tool</h1>
+        <h1>Manage Your Power Here</h1>
+      </div>
+      <div>
+        <Container draggableItems={draggableItems} droppableAreas={droppableAreas} />
       </div>
 
-      <div className="mt-8">
-        <h2 className="text-2xl font-semibold mb-4">Matched Skills and Jobs</h2>
-      
-      </div>
     </div>
   );
 }

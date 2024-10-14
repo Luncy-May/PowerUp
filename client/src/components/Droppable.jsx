@@ -10,7 +10,7 @@ export function Droppable(props) {
     };
 
     return (
-        <div ref={setNodeRef} style={style} className='p-5 border border-gray-600 shadow-md hover:shadow-2xl'>
+        <div ref={setNodeRef} style={style} className='m-1 p-5 border border-gray-600 shadow-md hover:shadow-2xl' id = {props.children}>
             {props.children}
         </div>
     );
